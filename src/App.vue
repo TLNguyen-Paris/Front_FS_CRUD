@@ -24,6 +24,7 @@
                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
               >
                 <input
+                  v-model="User.username"
                   type="text"
                   name="username"
                   id="username"
@@ -44,6 +45,7 @@
             >
             <div class="mt-2">
               <textarea
+                v-model="User.about"
                 id="about"
                 name="about"
                 rows="3"
@@ -133,6 +135,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.firstname"
                 type="text"
                 name="first-name"
                 id="first-name"
@@ -150,6 +153,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.lastname"
                 type="text"
                 name="last-name"
                 id="last-name"
@@ -167,6 +171,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.email"
                 id="email"
                 name="email"
                 type="email"
@@ -184,6 +189,7 @@
             >
             <div class="mt-2">
               <select
+                v-model="User.country"
                 id="country"
                 name="country"
                 autocomplete="country-name"
@@ -204,6 +210,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.address"
                 type="text"
                 name="street-address"
                 id="street-address"
@@ -221,6 +228,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.city"
                 type="text"
                 name="city"
                 id="city"
@@ -238,6 +246,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.state"
                 type="text"
                 name="region"
                 id="region"
@@ -255,6 +264,7 @@
             >
             <div class="mt-2">
               <input
+                v-model="User.zip"
                 type="text"
                 name="postal-code"
                 id="postal-code"
@@ -287,4 +297,20 @@
 
 <script setup>
 import { PhotoIcon, UserCircleIcon } from "@heroicons/vue/24/solid";
+const User = {
+  username: "",
+  about: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+  country: "",
+  address: "",
+  city: "",
+  state: "",
+  zip: "",
+};
+
+const SubmitForm = () => {
+  console.table(User);
+};
 </script>
