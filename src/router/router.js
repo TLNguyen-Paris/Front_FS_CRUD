@@ -1,11 +1,25 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "./../views/Home.vue";
-// import Create_User from "./../views/Create_User.vue";
-// import Read_User from "./../views/Read_User.vue";
-// import Update_User from "./../views/Update_User.vue";
 
-const routes = [{ path: "/", component: Home }];
+const routes = [
+  { path: "/", name: "Home", component: Home },
+  {
+    path: "/create",
+    name: "Create",
+    component: () => import("./../views/Create_User.vue"),
+  },
+  {
+    path: "/read",
+    name: "Read",
+    component: () => import("./../views/Read_User.vue"),
+  },
+  {
+    path: "/update/:id",
+    name: "Update",
+    component: () => import("./../views/Update_User.vue"),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
