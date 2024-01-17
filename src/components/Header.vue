@@ -26,17 +26,17 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <router-link
-                v-for="item in navigation"
-                :to="item.path"
-                :key="item.name"
+                v-for="route in navigation"
+                :to="route.path"
+                :key="route.name"
                 :class="[
-                  item.current
+                  $route.path === route.path
                     ? 'bg-gray-900 text-white'
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                   'rounded-md px-3 py-2 text-sm font-medium',
                 ]"
-                :aria-current="item.current ? 'page' : undefined"
-                >{{ item.name }}</router-link
+                :aria-current="route.current ? 'page' : undefined"
+                >{{ route.name }}</router-link
               >
             </div>
           </div>
@@ -77,9 +77,11 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 
-const navigation = [
-  { name: "Home", path: "/", current: true },
-  { name: "Create", path: "/create", current: false },
-  { name: "Read", path: "/read", current: false },
-];
+import { ref } from "vue";
+
+const navigation = ref([
+  { name: "Home", path: "/" },
+  { name: "Create", path: "/create" },
+  { name: "Read", path: "/read" },
+]);
 </script>
