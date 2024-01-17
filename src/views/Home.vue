@@ -1,3 +1,7 @@
 <template>
-  <div>Home Page</div>
+  <HeaderView />
 </template>
+
+<script setup>
+import HeaderView from "./../components/Header.vue";
+</script>

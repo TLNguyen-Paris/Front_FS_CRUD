@@ -25,10 +25,10 @@
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <a
+              <router-link
                 v-for="item in navigation"
+                :to="item.path"
                 :key="item.name"
-                :href="item.href"
                 :class="[
                   item.current
                     ? 'bg-gray-900 text-white'
@@ -36,12 +36,12 @@
                   'rounded-md px-3 py-2 text-sm font-medium',
                 ]"
                 :aria-current="item.current ? 'page' : undefined"
-                >{{ item.name }}</a
+                >{{ item.name }}</router-link
               >
             </div>
           </div>
         </div>
-        <div
+        <!-- <div
           class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
         >
           <button
@@ -53,7 +53,6 @@
             <BellIcon class="h-6 w-6" aria-hidden="true" />
           </button>
 
-          <!-- Profile dropdown -->
           <Menu as="div" class="relative ml-3">
             <div>
               <MenuButton
@@ -112,7 +111,7 @@
               </MenuItems>
             </transition>
           </Menu>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -150,9 +149,8 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Home", path: "/", current: true },
+  { name: "Create", path: "/create", current: false },
+  { name: "Read", path: "/read", current: false },
 ];
 </script>

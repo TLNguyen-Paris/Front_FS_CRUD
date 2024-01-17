@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <HeaderView />
     <form @submit="SubmitForm" class="mx-[25%] my-[5%]">
       <div class="space-y-12">
@@ -297,7 +297,7 @@
         </button>
       </div>
     </form>
-  </main>
+  </div>
 </template>
 
 <script setup>
