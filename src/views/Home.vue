@@ -52,9 +52,9 @@
                 <p class="mt-6 text-lg leading-8 text-gray-300">
                   Update of my previous CRUD project in 2021 with more features,
                   better design using the knowledge that i gain throughout the
-                  time. It will become a coding template for future references.
-                  Think about it like knowledge and mastery acquired that still
-                  has room to improve.
+                  time. It will become a coding template for future references
+                  with comment in every logical steps. Think about it like
+                  knowledge and mastery acquired that still has room to improve.
                 </p>
               </div>
             </div>
