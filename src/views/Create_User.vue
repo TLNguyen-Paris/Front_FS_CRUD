@@ -301,6 +301,7 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import HeaderView from "./../components/Header.vue";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/vue/24/solid";
 const User = {
@@ -318,5 +319,13 @@ const User = {
 
 const SubmitForm = () => {
   console.table(User);
+  axios
+    .post(`${process.env.BACKEND_URL}/fs/api/create-user`, User)
+    .then(() => {
+      console.log("User Send");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 </script>
