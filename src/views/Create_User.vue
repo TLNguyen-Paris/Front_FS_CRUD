@@ -320,7 +320,7 @@ const User = {
 const SubmitForm = () => {
   console.table(User);
   axios
-    .post(`${process.env.BACKEND_URL}/fs/api/create-user`, User)
+    .post(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/create-user`, User)
     .then(() => {
       console.log("User Send");
     })
