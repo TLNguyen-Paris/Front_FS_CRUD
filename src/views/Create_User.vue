@@ -321,7 +321,8 @@ const SubmitForm = () => {
   console.table(User);
   axios
     .post(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/create-user`, User)
-    .then(() => {
+    .then((res) => {
+      console.table(res);
       console.log("User Send");
     })
     .catch((err) => {

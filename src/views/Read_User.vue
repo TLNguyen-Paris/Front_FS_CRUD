@@ -1,7 +1,6 @@
 <template>
   <div>
     <HeaderView />
-    <h1>Read User Page</h1>
     <main>
       {{ Users }}
     </main>
