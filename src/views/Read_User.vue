@@ -117,6 +117,26 @@ const people = [
   },
 ];
 
+/*
+Not scrolled :  
+  Username 
+  Mail Hidden : 1letter - *** - @***.com
+  Acitivities/Job :
+  Country :
+  button edit
+
+Scrolled : 
+  Firstname + 1st letter lastname .
+  About
+
+Scrolled + see details :
+  Full name
+  Mail not hidden
+  Full Adress
+  created date
+  last update
+*/
+
 const Users = ref([]);
 
 const fetchUsers = () => {
