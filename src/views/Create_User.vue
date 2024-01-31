@@ -296,6 +296,14 @@ import HeaderView from "./../components/Header.vue";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/vue/24/solid";
 import { ref } from "vue";
 
+const DateNow = new Date();
+
+const day = DateNow.getDate().toString();
+const month = (DateNow.getMonth() + 1).toString();
+const year = DateNow.getFullYear().toString();
+const hours = DateNow.getHours().toString();
+const minutes = DateNow.getMinutes().toString();
+
 const User = ref({
   username: "",
   profession: "",
@@ -308,18 +316,22 @@ const User = ref({
   city: "",
   state: "",
   zip: "",
+  created_date: `${day.length < 2 ? "0" + day : day}/${
+    month.length < 2 ? "0" + month : month
+  }/${year} - ${hours}:${minutes}`,
+  lastupdate_date: [""],
 });
 
 const SubmitForm = () => {
   console.table(User);
-  axios
-    .post(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/create-user`, User)
-    .then((res) => {
-      console.table(res);
-      console.log("User Send");
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  // axios
+  //   .post(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/create-user`, User)
+  //   .then((res) => {
+  //     console.table(res);
+  //     console.log("User Send");
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
 };
 </script>
