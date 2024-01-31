@@ -322,7 +322,7 @@ const User = ref({
   state: "",
   zip: "",
   created_date: getDate(),
-  lastupdate_date: [""],
+  lastupdate_date: [],
 });
 
 const SubmitForm = () => {
