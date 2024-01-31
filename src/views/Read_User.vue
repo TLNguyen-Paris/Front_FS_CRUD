@@ -80,9 +80,14 @@
                   <td
                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                   >
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                      >Edit<span class="sr-only">, {{ user.name }}</span></a
-                    >
+                    <router-link
+                      :to="{
+                        name: 'Update',
+                        params: { ...user, id: user._id },
+                      }"
+                      class="text-indigo-600 hover:text-indigo-900"
+                      >Edit<span class="sr-only">, {{ user.name }}</span>
+                    </router-link>
                   </td>
                 </tr>
               </tbody>
