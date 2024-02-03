@@ -306,7 +306,7 @@ const getDate = () => {
 
   return `${day.length < 2 ? "0" + day : day}/${
     month.length < 2 ? "0" + month : month
-  }/${year} - ${hours}:${minutes}`;
+  }/${year} - ${hours}:${minutes.length < 2 ? "0" + minutes : minutes}`;
 };
 
 const User = ref({
