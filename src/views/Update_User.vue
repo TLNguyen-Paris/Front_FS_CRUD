@@ -1,10 +1,10 @@
 <template>
   <div>
     <HeaderView />
-    <h1>Update User Page {{ this.$route.params.id }}</h1>
-    <p>{{ route.params }}</p>
-    <p>{{ user }}</p>
-    <form class="mx-[25%] my-[5%]">
+    <p v-if="user">{{ user }}</p>
+    <p v-else>not working</p>
+    <p>ici {{ user.username }}</p>
+    <form @submit="SendUpdateForm" class="mx-[25%] my-[5%]">
       <div class="space-y-12">
         <!-- Profile Block -->
         <div class="border-b border-gray-900/10 pb-12">
@@ -31,12 +31,11 @@
                   class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
                 >
                   <input
+                    v-model="user.username"
                     type="text"
                     name="username"
                     id="username"
-                    autocomplete="username"
                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Joseph"
                   />
                 </div>
               </div>
@@ -54,12 +53,12 @@
                   class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
                 >
                   <input
+                    v-model="user.profession"
                     type="text"
                     name="profession"
                     id="profession"
                     autocomplete="profession"
                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Joseph"
                   />
                 </div>
               </div>
@@ -73,6 +72,7 @@
               >
               <div class="mt-2">
                 <textarea
+                  v-model="user.about"
                   id="about"
                   name="about"
                   rows="3"
@@ -125,9 +125,10 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.firstname"
                   type="text"
-                  name="first-name"
-                  id="first-name"
+                  name="firstname"
+                  id="firstname"
                   autocomplete="given-name"
                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -142,10 +143,10 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.lastname"
                   type="text"
-                  name="last-name"
-                  id="last-name"
-                  autocomplete="family-name"
+                  name="lastname"
+                  id="lastname"
                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -159,10 +160,10 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.email"
                   id="email"
                   name="email"
                   type="email"
-                  autocomplete="email"
                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -176,6 +177,7 @@
               >
               <div class="mt-2">
                 <select
+                  v-model="user.country"
                   id="country"
                   name="country"
                   autocomplete="country-name"
@@ -200,6 +202,7 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.address"
                   type="text"
                   name="street-address"
                   id="street-address"
@@ -217,6 +220,7 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.city"
                   type="text"
                   name="city"
                   id="city"
@@ -234,6 +238,7 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.state"
                   type="text"
                   name="region"
                   id="region"
@@ -251,6 +256,7 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="user.zip"
                   type="text"
                   name="postal-code"
                   id="postal-code"
@@ -290,25 +296,39 @@ import { onMounted, ref } from "vue";
 
 const route = useRoute();
 
-const user = ref();
+const user = ref({});
 
-const fetchUser = () => {
-  axios
-    .get(
+const getDate = () => {
+  const DateNow = new Date();
+  const day = DateNow.getDate().toString();
+  const month = (DateNow.getMonth() + 1).toString();
+  const year = DateNow.getFullYear().toString();
+  const hours = DateNow.getHours().toString();
+  const minutes = DateNow.getMinutes().toString();
+
+  return `${day.length < 2 ? "0" + day : day}/${
+    month.length < 2 ? "0" + month : month
+  }/${year} - ${hours}:${minutes.length < 2 ? "0" + minutes : minutes}`;
+};
+
+const fetchUser = async () => {
+  try {
+    const response = await axios.get(
       `${import.meta.env.VITE_APP_BACKEND_URL}fs/api/find-user/${
         route.params.id
       }`
-    )
-    .then((res) => {
-      console.log(res.data);
-      user.value = res.data;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    );
+    if (response.status == 200) {
+      user.value = response.data;
+    }
+  } catch (error) {
+    console.error("Error message :" + error);
+  }
 };
 
-onMounted(() => {
-  fetchUser();
-});
+const SendUpdateForm = () => {
+  user.lastupdate_date.value.push(getDate());
+  console.log(user.value.lastupdate_date);
+};
+onMounted(fetchUser);
 </script>
