@@ -331,8 +331,6 @@ const SubmitForm = () => {
     .post(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/create-user`, User)
     .then((res) => {
       console.table(res);
-      console.log(res.status);
-      console.log("User Send");
     })
     .catch((err) => {
       console.error(err);

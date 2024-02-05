@@ -127,7 +127,6 @@ const fetchUsers = () => {
   axios
     .get(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/get-user`)
     .then((res) => {
-      console.log(res);
       Users.value = res.data;
     })
     .catch((error) => {
