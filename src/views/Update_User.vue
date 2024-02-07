@@ -327,8 +327,22 @@ const fetchUser = async () => {
 };
 
 const SendUpdateForm = () => {
-  user.lastupdate_date.value.push(getDate());
+  user.value.lastupdate_date.push(getDate());
   console.log(user.value.lastupdate_date);
+  console.log(route.params.id);
+  axios
+    .put(
+      `${import.meta.env.VITE_APP_BACKEND_URL}fs/api/update-user/${
+        route.params.id
+      }`,
+      user.value
+    )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 onMounted(fetchUser);
 </script>
