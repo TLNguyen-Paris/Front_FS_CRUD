@@ -1,22 +1,32 @@
 <template>
   <div>
     <HeaderView />
-    <p v-if="user">{{ user }}</p>
-    <p v-else>not working</p>
-    <p>ici {{ user.username }}</p>
-    <form @submit="SendUpdateForm" class="mx-[25%] my-[5%]">
+    <p>user data {{ user }}</p>
+    <div class="mx-[25%] my-[5%] sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h2 class="text-base font-semibold leading-7 text-gray-900">
+          Update User
+        </h2>
+        <p class="mt-1 text-sm leading-6 text-gray-600">
+          Some of the information will be displayed publicly so be careful what
+          you share.
+        </p>
+      </div>
+      <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+        <button
+          @click="deleteUser"
+          class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Delete User
+        </button>
+      </div>
+    </div>
+
+    <!-- Form Start -->
+    <form @submit.prevent="SendUpdateForm" class="mx-[25%] my-[5%]">
       <div class="space-y-12">
         <!-- Profile Block -->
         <div class="border-b border-gray-900/10 pb-12">
-          <!-- Warning Message -->
-          <h2 class="text-base font-semibold leading-7 text-gray-900">
-            Profile
-          </h2>
-          <p class="mt-1 text-sm leading-6 text-gray-600">
-            Some of the information will be displayed publicly so be careful
-            what you share.
-          </p>
-
           <!-- Profile Grid -->
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <!-- Username Section -->
@@ -291,9 +301,10 @@
 <script setup>
 import HeaderView from "./../components/Header.vue";
 import axios from "axios";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 
+const router = useRouter();
 const route = useRoute();
 
 const user = ref({});
@@ -328,8 +339,6 @@ const fetchUser = async () => {
 
 const SendUpdateForm = () => {
   user.value.lastupdate_date.push(getDate());
-  console.log(user.value.lastupdate_date);
-  console.log(route.params.id);
   axios
     .put(
       `${import.meta.env.VITE_APP_BACKEND_URL}fs/api/update-user/${
@@ -337,12 +346,29 @@ const SendUpdateForm = () => {
       }`,
       user.value
     )
-    .then((res) => {
-      console.log(res);
+    .then(() => {
+      router.push("/read");
     })
     .catch((err) => {
       console.error(err);
     });
 };
+
+const deleteUser = async () => {
+  try {
+    await axios
+      .delete(
+        `${import.meta.env.VITE_APP_BACKEND_URL}fs/api/delete-user/${
+          route.params.id
+        }`
+      )
+      .then(() => {
+        router.push("/read");
+      });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 onMounted(fetchUser);
 </script>
