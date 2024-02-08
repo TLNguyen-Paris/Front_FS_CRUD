@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderView />
-    <form @submit="SubmitForm" class="mx-[25%] my-[5%]">
+    <form @submit.prevent="SubmitForm" class="mx-[25%] my-[5%]">
       <div class="space-y-12">
         <!-- Profile Block -->
         <div class="border-b border-gray-900/10 pb-12">
@@ -295,6 +295,9 @@ import axios from "axios";
 import HeaderView from "./../components/Header.vue";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/vue/24/solid";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const getDate = () => {
   const DateNow = new Date();
@@ -328,8 +331,8 @@ const User = ref({
 const SubmitForm = () => {
   axios
     .post(`${import.meta.env.VITE_APP_BACKEND_URL}fs/api/create-user`, User)
-    .then((res) => {
-      console.table(res);
+    .then(() => {
+      router.push("/read");
     })
     .catch((err) => {
       console.error(err);
