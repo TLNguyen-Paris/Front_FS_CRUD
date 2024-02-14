@@ -72,7 +72,12 @@
                     {{ user.profession }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ user.email }}
+                    {{
+                      user.email.replace(
+                        /(?<=^.{1}).*?(?=@)/,
+                        "*".repeat(user.email.indexOf("@") - 1)
+                      )
+                    }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                     {{ user.country }}
@@ -103,23 +108,6 @@
 import HeaderView from "./../components/Header.vue";
 import axios from "axios";
 import { onMounted, ref } from "vue";
-
-/*
-Not scrolled :  
-  Mail Hidden : 1letter - *** - @***.com
-  button edit
-
-Scrolled : 
-  Firstname + 1st letter lastname .
-  About
-
-Scrolled + see details :
-  Full name
-  Mail not hidden
-  Full Adress
-  created date
-  last update
-*/
 
 const Users = ref([]);
 
